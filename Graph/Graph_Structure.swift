@@ -86,7 +86,7 @@ struct Graph_Structure: View {
                 }
                 
                 if !graphModel.showAlert {
-                    Bar(text: graphModel.topBarText)
+                    TopBar(text: graphModel.topBarText)
                         .frame(height: UIScreen.main.bounds.height * 64/1133)
                         .padding(.top, 32)
                         .opacity(graphModel.topBarOpacity)
@@ -102,7 +102,7 @@ struct Graph_Structure: View {
                         Button(action: {
                             withAnimation {
                                 if graphModel.isChoosingNodes {
-                                    page = .welcomePage
+                                   // page = .welcomePage
                                 } else {
                                     graphModel.previousButtonTapped()
                                 }
@@ -115,7 +115,7 @@ struct Graph_Structure: View {
                     
                     // Options bar
                     if graphModel.isEditingNodesAndEdges {
-                        ClearRandomBar(graphModel: graphModel)
+                        BottomBar(graphModel: graphModel)
                             .padding()
                             .opacity(graphModel.clearRandomBarOpacity)
                         
@@ -139,7 +139,7 @@ struct Graph_Structure: View {
                         Button(action: {
                             withAnimation {
                                 if graphModel.isAboutToPickOrRunAlgorithm {
-                                    page = .finalPage
+                                   // page = .finalPage
                                 } else {
                                     graphModel.nextButtonTapped()
                                 }

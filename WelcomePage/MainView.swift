@@ -24,13 +24,13 @@ struct MainView: View {
         
         // Main Stack
                 ZStack{
-                    Color.black
+                    Color("cream")
                         .edgesIgnoringSafeArea(.all)
                     
                     Circle()
                         .frame(width: 1200, height: 1200)
                         .foregroundColor(Color("blue1"))
-                        .offset(x: 0, y: -350)
+                        .offset(x: 0, y: -370)
                     
                     
                     Circle()

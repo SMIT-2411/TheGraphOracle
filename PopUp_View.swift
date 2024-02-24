@@ -144,3 +144,136 @@ struct GenericInstructionView: View {
     }
 }
 
+struct AlertPopUpView: View {
+    @ObservedObject var graphModel: GraphAlgoModel
+    @Binding var showPopupAgain: Bool
+    
+    @State private var currHeight : CGFloat = 500
+    let minHeight : CGFloat = 500
+    let maxHeight : CGFloat = 700
+    
+    var body: some View {
+        
+        ZStack(alignment: .bottom){
+        if showPopupAgain{
+            
+            
+                Color.black
+                    .opacity(0.3)
+                    .ignoresSafeArea()
+                    .onTapGesture {
+                        graphModel.showGenericInstructionPopup = false
+                        showPopupAgain = false
+                    }
+                
+                secondaryView
+                .transition(.move(edge: .bottom))
+            }
+            
+        }.frame(maxWidth: .infinity , maxHeight: .infinity , alignment: .bottom)
+            .ignoresSafeArea()
+            .animation(.easeInOut)
+    }
+    
+    var secondaryView: some View {
+        VStack{
+            ZStack{
+                Capsule()
+                    .frame(width: 100 , height: 15)
+            }
+            .frame(height: 50)
+            .frame(maxWidth: .infinity)
+            .background(Color.white.opacity(0.00001))
+            .gesture(dragGesture)
+            
+            ZStack{
+                VStack{
+                    Text("Instruction: Organizing Your Graph")
+                        .foregroundColor(.black)
+                        .bold()
+                        .font(.title)
+                    
+                    
+                    Text("1. Attention to Detail:")
+                        .foregroundColor(.black)
+                        .fontWeight(.bold)
+                        .font(.title2)
+                        .multilineTextAlignment(.center)
+                        .padding(.horizontal, 50)
+                        .padding(.top , 30)
+                    
+                    Text("Attention to Detail: Building a clear and understandable graph requires careful organization. Pay attention to the total number of nodes and edges, as well as potential intersections. Messy layouts can make visualization difficult.")
+                        .foregroundColor(.black)
+                        .fontWeight(.semibold)
+                        .font(.title3)
+                        .multilineTextAlignment(.center)
+                        .padding()
+                        
+                    Text("2.Node Management:")
+                        .foregroundColor(.black)
+                        .fontWeight(.bold)
+                        .font(.title2)
+                        .multilineTextAlignment(.center)
+                        .padding(.horizontal, 80)
+                        .padding(.vertical)
+                    
+                    Text("> Tap on any node to remove it from the graph temporarily.")
+                        .foregroundColor(.black)
+                        .fontWeight(.semibold)
+                        .font(.title3)
+                        .multilineTextAlignment(.center)
+                       
+                        
+                    Text("> Tap again on a removed node to add it back to the graph.")
+                        .foregroundColor(.black)
+                        .fontWeight(.semibold)
+                        .font(.title3)
+                        .multilineTextAlignment(.leading)
+                       
+                        
+                    
+                }
+                .padding(.horizontal,30)
+            }
+            .frame(maxHeight: .infinity)
+            .padding(.bottom , 30)
+        }
+        .frame(height:currHeight)
+        .frame(maxWidth:.infinity)
+        .background(
+            ZStack{
+                RoundedRectangle(cornerRadius: 30)
+                Rectangle()
+                    .frame(height: currHeight / 2)
+                
+            }
+                .foregroundColor(.white)
+        )
+        
+    }
+    
+    @State private var prevDragTranslation = CGSize.zero
+    
+    var dragGesture: some Gesture {
+        DragGesture(minimumDistance: 0 , coordinateSpace: .global)
+            .onChanged { val in
+                let dragAmount = val.translation.height - prevDragTranslation.height
+                
+                if currHeight > maxHeight || currHeight < minHeight{
+                    currHeight -= dragAmount / 6
+                }
+                else
+                {
+                    currHeight -= dragAmount
+                }
+                prevDragTranslation = val.translation
+                
+            }.onEnded { val in
+                prevDragTranslation = .zero
+                
+            }
+    }
+}
+
+
+

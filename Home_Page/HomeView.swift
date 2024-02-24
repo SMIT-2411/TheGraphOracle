@@ -5,26 +5,33 @@
 //  Created by Smit Patel on 17/02/24.
 //
 
+
 import SwiftUI
 
 var width = UIScreen.main.bounds.width
 
 struct HomeView: View {
+   
+    @Binding var currentPage: Page
     @EnvironmentObject var homeModel: CarouselViewModel
     @Namespace var animation
 
     var body: some View {
         ZStack {
-            Color.black.ignoresSafeArea()
+            Color("cream").ignoresSafeArea()
             VStack {
                 HStack {
-                    Button(action: {}, label: {
+                    Button(action: {
+                        self.currentPage = .welcomePage
+                    }, label: {
                         Image(systemName: "xmark")
-                            .font(.title2)
-                            .foregroundColor(.gray)
+                            .font(.system(size: 30))
+                            .foregroundColor(.black)
+                            .padding(.leading)
                     })
 
-                    Text("Health Tips")
+                    Text("Graph Algorithm's")
+                        .font(.system(size: 50))
                         .fontWeight(.bold)
                         .foregroundColor(.black)
                         .padding(.leading)
@@ -32,7 +39,11 @@ struct HomeView: View {
                     Spacer()
 
                 }
-                .padding()
+                .padding(.top)
+                
+               
+                
+                Spacer()
 
                 // Carousel
                 ZStack {
@@ -48,7 +59,7 @@ struct HomeView: View {
 
                             Spacer(minLength: 0)
                         }
-                        .frame(height: 400)
+                        .frame(height: 800)
                         .contentShape(Rectangle())
                         .offset(x: homeModel.cards[index].offset)
                         .gesture(
@@ -81,7 +92,7 @@ struct HomeView: View {
 
             // Detail view
             if homeModel.showCard {
-               Algo_Detail_View(animation: animation)
+                Algo_Detail_View(currentPage: .constant(.homePage), animation: animation)
             }
         }
     }
@@ -147,6 +158,3 @@ struct HomeView: View {
 }
 
 
-#Preview {
-    HomeView()
-}

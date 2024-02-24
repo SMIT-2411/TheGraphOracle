@@ -48,7 +48,7 @@ struct Algo_Card_View: View {
                 .foregroundColor(Color.white.opacity(0.9))
                 .padding(30)
             }
-            .frame(maxWidth: .infinity, maxHeight: .infinity)
+            .frame(maxWidth: 800, maxHeight: 1500)
             .background(
                 card.cardColor
                     .cornerRadius(25)

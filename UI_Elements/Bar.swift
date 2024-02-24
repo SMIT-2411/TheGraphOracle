@@ -9,21 +9,22 @@ import Foundation
 import SwiftUI
 import Combine
 
-struct Bar: View {
+struct TopBar: View {
     var text: String
     var body: some View {
-        Rectangle()
-            .fill(Color.blackGray)
-            .blur(radius: 10)
-            .overlay {
-                Text(text)
-                    .foregroundColor(.white)
-                    .fontWeight(.semibold)
-                    .font(.title3)
-                    .multilineTextAlignment(.center)
-            }
+                RoundedRectangle(cornerRadius: 30)
+            .fill(Color("coffee"))
+                    .overlay {
+                        Text(text)
+                            .foregroundColor(Color("cream"))
+                            .font(.title)
+                            .fontWeight(.semibold)
+                            .multilineTextAlignment(.center)
+                    }
     }
+       
 }
+
 
 struct AlgorithmNameBar: View {
     var text: String
@@ -54,20 +55,19 @@ struct SelectAlgorithmAndRunBar: View {
     
     var body: some View {
         ZStack {
-            Rectangle()
-                .fill(Color.blackGray)
-                .blur(radius: 10)
-            
+            RoundedRectangle(cornerRadius: 25.0)
+                .fill(Color("cream"))
+                
             HStack {
                 Spacer()
-                BottomBarButton(image: Image(systemName: "arrow.uturn.up"), text: "Select algorithm") {
+                BottomBarButton(image: Image("list1"), text: "Select algorithm") {
                     withAnimation {
                         graphModel.showAlgorithmsList()
                     }
                 }.padding(.trailing)
                 Spacer()
                 
-                BottomBarButton(image: Image(systemName: "play.fill"),
+                BottomBarButton(image: Image("play"),
                                 text: "Run",
                                 disabled: graphModel.selectedAlgorithm == nil) {
                     withAnimation { graphModel.runAlgorithm() }
@@ -80,6 +80,12 @@ struct SelectAlgorithmAndRunBar: View {
 
     }
 }
+
+#Preview{
+    SelectAlgorithmAndRunBar(graphModel: GraphAlgoModel())
+}
+
+
 
 
 
@@ -96,13 +102,13 @@ struct StopPauseResumeBar: View {
     
     var body: some View {
         ZStack {
-            Rectangle()
-                .fill(Color.blackGray)
-                .blur(radius: 10)
+            RoundedRectangle(cornerRadius: 25.0)
+                .fill(Color("cream"))
+               
             
             HStack {
                 Spacer()
-                BottomBarButton(image: Image(systemName: "stop.fill"), text: "Stop") {
+                BottomBarButton(image: Image("stop"), text: "Stop") {
                     withAnimation { graphModel.stopAlgorithm() }
                 }.padding(.trailing)
                 Spacer()
@@ -124,10 +130,10 @@ struct StopPauseResumeBar: View {
         graphModel.graph.$algorithmState.sink { state in
             switch state {
             case .running:
-                secButtonImage = Image(systemName: "pause.fill")
+                secButtonImage = Image("pause")
                 secButtonText = "Pause"
             default:
-                secButtonImage = Image(systemName: "play.fill")
+                secButtonImage = Image("play")
                 secButtonText = "Resume"
             }
         }.store(in: &cancellables)
@@ -144,14 +150,15 @@ struct BottomBarButton: View {
         Button(action: {
             if !disabled { self.action() }
         } ) {
-            HStack {
-                image
-                    .foregroundColor(disabled ? .gray : .white)
-                    .font(.title2)
-                    .fontWeight(.semibold)
+            VStack {
+                image.resizable()
+                    .frame(width:60 , height:60)
+                    .font(.title)
+                    .foregroundColor(disabled ? .gray : .black)
+                    
                 Text(text)
-                    .foregroundColor(disabled ? .gray : .white)
-                    .font(.title2)
+                    .foregroundColor(disabled ? .gray : .black)
+                    .font(.title)
                     .fontWeight(.semibold)
             }
         }
@@ -159,28 +166,34 @@ struct BottomBarButton: View {
 }
 
 
-struct ClearRandomBar: View {
+struct BottomBar: View {
     @ObservedObject var graphModel: GraphAlgoModel
     
-    private let w = UIScreen.main.bounds.width * 415/744
-    private let h = UIScreen.main.bounds.width * 70/1133
+    private let w = UIScreen.main.bounds.width * 415/750
+    private let h = UIScreen.main.bounds.width * 70/1200
     
     var body: some View {
         ZStack {
-            Rectangle()
-                .fill(Color.blackGray)
-                .blur(radius: 10)
+            RoundedRectangle(cornerRadius: /*@START_MENU_TOKEN@*/25.0/*@END_MENU_TOKEN@*/)
+                .fill(Color("cream"))
+                
+                
             
             HStack {
                 Spacer()
-                BottomBarButton(image: Image(systemName: "x.circle"), text: "Clear") {
+                
+                BottomBarButton(image: Image("reset"), text: "Reset") {
                     withAnimation { graphModel.clearButtonTapped() }
                 }.padding(.trailing)
+                    .padding(.leading , 35)
+                
+                Spacer()
                 Spacer()
                 
-                BottomBarButton(image: Image(systemName: "shuffle.circle"), text: "Random") {
+                BottomBarButton(image: Image("random"), text: "Randomly") {
                     withAnimation { graphModel.randomButtonTapped() }
-                }.padding(.leading)
+                }.padding(.leading , 17)
+                
                 Spacer()
             }
         }
@@ -188,4 +201,6 @@ struct ClearRandomBar: View {
         .frame(maxWidth: w)
     }
 }
+
+
 

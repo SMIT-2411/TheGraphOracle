@@ -18,8 +18,8 @@ struct EdgeView: View {
             path.move(to: edge.sourcePosition)
             path.addLine(to: edge.destPosition)
         }
-        .stroke(lineWidth: 3)
-        .foregroundColor(.white)
+        .stroke(lineWidth: 5)
+        .foregroundColor(Color("coffee"))
     }
 }
 

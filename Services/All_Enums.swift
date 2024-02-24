@@ -11,6 +11,7 @@ enum Page {
     case welcomePage
     case homePage
     case finalPage
+    case graphPage
 }
 
 enum Step: CaseIterable {
@@ -43,7 +44,7 @@ enum EdgeError: Error {
 enum Algorithm: String, CaseIterable, Identifiable {
     case dfs = "Depth-first search"
     case bfs = "Breadth-first search"
-    case djikstra = "Djikstra's shortest path"
+    case dijkstra = "Djikstra's shortest path"
     case prim = "Prim's minimum spanning tree"
     
     var id: String { self.rawValue }

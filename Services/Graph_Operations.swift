@@ -14,7 +14,7 @@ class Graph_Operations: ObservableObject, Copying {
     
     static let maxNodesQuant = NodePosition.nodesPositions.count
     static let maxHiddenNodesQuantCover = NodePosition.coverHiddenNodesPositions.count
-    static let nodeSize: CGFloat = 30
+    static let nodeSize: CGFloat = 40
     
     // MARK: - Properties
     
@@ -421,7 +421,7 @@ extension Graph_Operations {
     // MARK: - Djikstra
     
     func runDjikstra(startingFrom node: Node) {
-        selectedAlgorithm = .djikstra
+        selectedAlgorithm = .dijkstra
         djikstra(startingFrom: node)
         animateAlgorithm()
     }
@@ -520,7 +520,7 @@ extension Graph_Operations  {
                 self.timer?.invalidate()
                 self.algorithmState = .notStarted
                 
-                if self.selectedAlgorithm == .djikstra || self.selectedAlgorithm == .prim {
+                if self.selectedAlgorithm == .dijkstra || self.selectedAlgorithm == .prim {
                     self.removeEdgesFromTree()
                 }
                 
@@ -549,7 +549,7 @@ struct GraphAlgoExplanation {
                 return "Depth-first search performs a search in a graph. It starts from a source node and explores as far as possible (visiting the neighbors of the neighbors) along each branch before backtracking, i.e., visiting the remaining node's neighbors and repeating this process.\n\nA graph can have more than one DFS, depending on the order the neighbors were added to the neighborhoods. Also, each node must be marked as visited since a graph may contain cycles and, therefore, each node can be processed twice or more."
             case .bfs:
                 return "The breadth-first search performs a search in a graph. It starts from a source node and visits all nodes at the current depth level (neighborhood) before moving to the nodes at the next depth level (neighbors of the neighbors).\n\nA graph can have more than one BFS, depending on the order the neighbors were added to the neighborhoods. Also, each node must be marked as visited since a graph may contain cycles and, therefore, each node can be processed twice or more."
-            case .djikstra:
+            case .dijkstra:
                 return "This algorithm finds the shortest path from a source node to all the other nodes in a graph considering the cost (edge's weights) to reach them. At the end of it's execution, it produces what we call Shortest Path Tree (SPT).\n\nIn comparison with Prim's algorithm, the sum of the costs of the edges in the SPT can be much larger than the cost of a Minimum Spanning Tree."
             case .prim:
                 return "This algorithm finds the called Minimum Spanning Tree (MST), that is a subset of edges that forms a tree including all nodes, where the total weight of these edges is minimized.\n\nIn comparison with Djisktra's algorithm, the length of a path between any two nodes in the MST might not be the shortest path between them in the original graph."

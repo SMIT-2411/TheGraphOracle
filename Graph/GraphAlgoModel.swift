@@ -238,7 +238,7 @@ extension GraphAlgoModel {
         eraseAllEdgesWeights()
         graph.resetTree()
         
-        if selectedAlgorithm == .djikstra || selectedAlgorithm == .prim {
+        if selectedAlgorithm == .dijkstra || selectedAlgorithm == .prim {
             step = .edgesWeigthsSelection
             setRandomWeightsForAllEdges()
         } else {
@@ -568,7 +568,7 @@ extension GraphAlgoModel {
             graph.runBFS(startingFrom: graphInitialNode!)
             observeAlgorithmFinishedStatus()
             
-        case .djikstra:
+        case .dijkstra:
             if hasNoInitialNode() { break }
             graph.unvisitAllNodes()
             graph.resetTree()

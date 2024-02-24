@@ -1,13 +1,13 @@
 //
-//  BFS_View.swift
+//  Prims_View.swift
 //  TheGraphOracle
 //
-//  Created by Smit Patel on 24/02/24.
+//  Created by Smit Patel on 25/02/24.
 //
 
 import SwiftUI
 
-struct BFS_View: View {
+struct Prims_View: View {
     
     @Environment(\.presentationMode) var presentationMode: Binding<PresentationMode>
     
@@ -101,6 +101,7 @@ struct BFS_View: View {
                            Button(action: {
                                withAnimation {
                                    if graphModel.isChoosingNodes {
+                                      // page = .welcomePage
                                        presentationMode.wrappedValue.dismiss()
                                    } else {
                                        graphModel.previousButtonTapped()
@@ -112,7 +113,7 @@ struct BFS_View: View {
                            .opacity(graphModel.previousButtonOpacity)
                        }
                        
-                       if graphModel.isEditingNodesAndEdges 
+                       if graphModel.isEditingNodesAndEdges
                        {
                           BottomBar(graphModel: graphModel)
                                .padding()
@@ -129,7 +130,7 @@ struct BFS_View: View {
                            StopPauseResumeBar(graphModel: graphModel).padding()
                            
                        }else {
-                           BFSPicker(graphModel: graphModel)
+                          PrimsPicker(graphModel: graphModel)
                                .padding()
                                .opacity(graphModel.algorithmsListOpacity)
                            
@@ -140,7 +141,7 @@ struct BFS_View: View {
                            Button(action: {
                                withAnimation {
                                    if graphModel.isAboutToPickOrRunAlgorithm {
-                                     // page = .homePage
+                                      // page = .homePage
                                    } else {
                                        graphModel.nextButtonTapped()
                                    }
@@ -169,4 +170,6 @@ struct BFS_View: View {
        }
 }
 
-
+#Preview {
+    Prims_View( showPopupAgain: .constant(true))
+}

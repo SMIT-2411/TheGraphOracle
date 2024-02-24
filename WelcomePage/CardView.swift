@@ -17,13 +17,13 @@ struct CardView: View {
                 Text(card.title)
                     .font(.system(size: 40))
                     .fontWeight(.bold)
-                    .foregroundColor(Color("cream"))
+                    .foregroundColor(.black)
                 
                 Text(card.description)
                     .fontWeight(.light)
                     .multilineTextAlignment(.center)
                     .font(.system(size: 25))
-                    .foregroundColor(Color("cream"))
+                    .foregroundColor(.black)
                     .frame(width: 900, height: 150)
                     .padding()
                 

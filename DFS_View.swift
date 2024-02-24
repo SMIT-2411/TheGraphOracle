@@ -1,13 +1,13 @@
 //
-//  BFS_View.swift
+//  DFS_View.swift
 //  TheGraphOracle
 //
-//  Created by Smit Patel on 24/02/24.
+//  Created by Smit Patel on 25/02/24.
 //
 
 import SwiftUI
 
-struct BFS_View: View {
+struct DFS_View: View {
     
     @Environment(\.presentationMode) var presentationMode: Binding<PresentationMode>
     
@@ -81,7 +81,7 @@ struct BFS_View: View {
                
                VStack {
                    
-                   Text("B F S")
+                   Text("D F S")
                        .font(.system(size: 50))
                        .fontWeight(.bold)
                    
@@ -101,6 +101,7 @@ struct BFS_View: View {
                            Button(action: {
                                withAnimation {
                                    if graphModel.isChoosingNodes {
+                                      // page = .welcomePage
                                        presentationMode.wrappedValue.dismiss()
                                    } else {
                                        graphModel.previousButtonTapped()
@@ -112,7 +113,7 @@ struct BFS_View: View {
                            .opacity(graphModel.previousButtonOpacity)
                        }
                        
-                       if graphModel.isEditingNodesAndEdges 
+                       if graphModel.isEditingNodesAndEdges
                        {
                           BottomBar(graphModel: graphModel)
                                .padding()
@@ -129,18 +130,16 @@ struct BFS_View: View {
                            StopPauseResumeBar(graphModel: graphModel).padding()
                            
                        }else {
-                           BFSPicker(graphModel: graphModel)
+                           DFSPicker(graphModel: graphModel)
                                .padding()
                                .opacity(graphModel.algorithmsListOpacity)
-                           
-                          // graphModel.selectAlgorithm(Algorithm.bfs)
                        }
                        
                        if graphModel.showNextButton {
                            Button(action: {
                                withAnimation {
                                    if graphModel.isAboutToPickOrRunAlgorithm {
-                                     // page = .homePage
+                                      // page = .homePage
                                    } else {
                                        graphModel.nextButtonTapped()
                                    }
@@ -169,4 +168,6 @@ struct BFS_View: View {
        }
 }
 
-
+#Preview {
+    DFS_View( showPopupAgain: .constant(true))
+}
