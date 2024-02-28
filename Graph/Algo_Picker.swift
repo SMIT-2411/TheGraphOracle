@@ -29,7 +29,6 @@ struct AlgoPicker: View {
                         Button(action: {
                             withAnimation {
                                 graphModel.selectedAlgorithmForExplanation = alg
-                                graphModel.showAlgorithmExplanationBox = true
                             }
                         }) {
                             Image(systemName: "questionmark.circle")

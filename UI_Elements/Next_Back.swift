@@ -7,25 +7,28 @@
 
 import SwiftUI
 
-struct Arrow: View {
+struct Next_Back: View {
     var next: Bool
     
     var body: some View {
         Circle()
             .foregroundColor(.white)
-            .frame(width: 40, height: 40)
+            .frame(width: 100, height: 100)
             .overlay {
                 if next {
-                    Image(systemName: "chevron.right")
+                    Image("right")
                         .fontWeight(.bold)
                         .foregroundColor(.black)
                         
                 } else {
-                    Image(systemName: "chevron.left")
+                    Image("left")
                         .fontWeight(.bold)
                         .foregroundColor(.black)
                 }
             }
     }
+    
 }
+
+
 

@@ -13,8 +13,7 @@ struct Dijkstra_View: View {
     
     @Binding var showPopupAgain: Bool
     @StateObject private var graphModel = GraphAlgoModel()
-    
-       
+
        var body: some View {
            ZStack {
                Color("cream").edgesIgnoringSafeArea(.all)
@@ -44,7 +43,7 @@ struct Dijkstra_View: View {
                                    .zIndex(1)
                                    .onTapGesture {
                                        withAnimation {
-                                           graphModel.setRandomWeightOn(edge)
+                                          graphModel.setWeightOn(edge)
                                        }
                                    }
                            }
@@ -64,7 +63,7 @@ struct Dijkstra_View: View {
                }
                
                // Alerts and popup
-               if showPopupAgain && graphModel.showGenericInstructionPopup {
+               if showPopupAgain && graphModel.InstructionPopup {
                    AlertPopUpView(graphModel: graphModel, showPopupAgain: $showPopupAgain)
                        .transition(.move(edge: .bottom)) // Slide in from bottom animation
                }
@@ -74,14 +73,14 @@ struct Dijkstra_View: View {
                        .transition(.opacity) // Fade in animation
                }
                
-               if graphModel.showAlgorithmExplanationBox {
-                   ExplanationBoxView(graphModel: graphModel, algorithm: graphModel.selectedAlgorithmForExplanation)
-                       .transition(.move(edge: .top)) // Slide in from top animation
-               }
+//               if graphModel.showAlgorithmExplanationBox {
+//                   ExplanationBoxView(graphModel: graphModel, algorithm: graphModel.selectedAlgorithmForExplanation)
+//                       .transition(.move(edge: .top)) // Slide in from top animation
+//               }
                
                VStack {
                    
-                   Text("B F S")
+                   Text("Dijkstra Algorithm")
                        .font(.system(size: 50))
                        .fontWeight(.bold)
                    
@@ -121,13 +120,13 @@ struct Dijkstra_View: View {
                            
                        } else if graphModel.isSettingEdgesWeights {
                            
-                           AlgorithmNameBar(text: graphModel.selectedAlgorithm?.id ?? "").padding()
+                           AlgoNameBar(text: graphModel.selectedAlgorithm?.id ?? "").padding()
                            
                        } else if graphModel.isAboutToPickOrRunAlgorithm {
-                           SelectAlgorithmAndRunBar(graphModel: graphModel).padding()
+                           SelectAlgorithmBar(graphModel: graphModel).padding()
                            
                        } else if graphModel.algorithmIsLive {
-                           StopPauseResumeBar(graphModel: graphModel).padding()
+                           controlBar(graphModel: graphModel).padding()
                            
                        }else {
                            DijkstraPicker(graphModel: graphModel)
@@ -141,7 +140,7 @@ struct Dijkstra_View: View {
                            Button(action: {
                                withAnimation {
                                    if graphModel.isAboutToPickOrRunAlgorithm {
-                                      // page = .homePage
+                                       presentationMode.wrappedValue.dismiss()
                                    } else {
                                        graphModel.nextButtonTapped()
                                    }
@@ -162,7 +161,7 @@ struct Dijkstra_View: View {
                DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
                    if showPopupAgain {
                        withAnimation {
-                           graphModel.showGenericInstructionPopup = true
+                           graphModel.InstructionPopup = true
                        }
                    }
                }
